@@ -6,28 +6,28 @@
 #include "builtins.h"
 
 
-int handle_builtin(char *args[])
+int handle_builtin(Command *cmd)
 {
-    if (args[0] == NULL)
+    if (cmd->args[0] == NULL)
         return 1;
 
     // exit command
-    if (strcmp(args[0], "exit") == 0)
+    if (strcmp(cmd->args[0], "exit") == 0)
     {
         printf("Exiting shell...\n");
         exit(0);
     }
 
     // cd command
-    if (strcmp(args[0], "cd") == 0)
+    if (strcmp(cmd->args[0], "cd") == 0)
     {
-        if (args[1] == NULL)
+        if (cmd->args[1] == NULL)
         {
             fprintf(stderr, "cd: missing argument\n");
         }
         else
         {
-            if (chdir(args[1]) != 0)
+            if (chdir(cmd->args[1]) != 0)
             {
                 perror("cd failed");
             }

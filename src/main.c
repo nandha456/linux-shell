@@ -20,23 +20,26 @@ int main()
             printf("\n");
             break;
         }
-
+        //remove the enter key '/n' form the end of the input string
         input[strcspn(input, "\n")] = '\0';
 
         if (strlen(input) == 0)
             continue;
 
-        char *args[MAX_ARGS];
+        Command cmd;
 
-        int argc = parse_input(input, args);
+        //parse the input and get the arguments like args[0] = "ls", args[1] = "-l", args[2] = NULL
+        int argc = parse_input(input, &cmd);
 
         if (argc == 0)
             continue;
 
-	if (handle_builtin(args))
+        //check if the command is a built-in command like "cd", "exit", "help"
+	    if (handle_builtin(&cmd))
             continue;
-
-        execute_command(args);
+        
+        //execute the command using fork and execvp
+        execute_command(&cmd);
     }
 
     return 0;

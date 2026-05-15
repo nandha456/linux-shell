@@ -2,6 +2,8 @@
 #define BUILTINS_H
 
 
-int handle_builtin(char *args[]);
+#include "shell.h"
+
+int handle_builtin(Command *cmd);
 
 #endif
